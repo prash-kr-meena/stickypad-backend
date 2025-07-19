@@ -1,0 +1,76 @@
+creates a retro board for users to join
+server would create an auto-generated board id (4 digit unique number)
+
+and this link can then be shared to users to join the board
+by joining the board, users would essentially first get the data of the current board
+and they can then post their own data on the board
+
+
+
+on the client side the user needs to generate an random uniqe UUID which then needs to be saved in the cookie
+and when the user is calling any of the API of the server, they need to have this userId present otheriwse the API would reject the request
+
+There is a concept of Host, which the user who created the board is the host
+they definetely can transfer the Host ownership if needed (there would be an api for that)
+
+
+
+POST /retro-board
+and redirects user to a different link for that specific board
+also shows a modal for the user to copy this new link and invite users
+{
+  "userId": "user123"
+}
+
+once the response is present with the user -> then the frontend can redirect to this new board link
+{
+  "boardNumber": 2993,
+  "boardLink": "https://aesthetic-begonia-c590c5.netlify.app/retro-board2993",
+  "hostUserId": null,
+  "userStatusMap": {},
+  "notes": []
+}
+
+
+Response
+{
+  "boardId": "1234", // auto-generated unique board ID
+  "boardLink": "https://stickypad.com/retro-board/1234", // link to join the board
+  "message": "board created successfully! Share this link with others to join."
+}
+
+
+GET /retro-board/:boardId
+essentially gives you the current state of the board (all the data)
+
+{
+  "boardId": "1234",
+  "hostUser" : "user123"
+  "userStatus": {
+    "userId" : "in-progress",
+    "userId" : "finished",
+  }
+  "notes": [
+    {
+      "id": "note1",
+      "content": "This is a note",
+      "column": "went-well"
+      "userId": "user123" // the user who created this note
+    },
+    {
+      "id": "note2",
+      "content": "This is a note",
+      "column": "can-be-improved"
+      "userId": "user123" // the user who created this note
+    },
+    {
+      "id": "note3",
+      "content": "This is a note",
+      "column": "action-items"
+      "userId": "user123" // the user who created this note
+    }
+  ],
+
+  // other board data like users, timestamps, etc.
+
+}
