@@ -1,6 +1,9 @@
 package com.stickypad.backend.model;
 
-public record Notes(
+import lombok.Builder;
+
+@Builder
+public record Note(
   String noteId,
   String userId,
   String content,

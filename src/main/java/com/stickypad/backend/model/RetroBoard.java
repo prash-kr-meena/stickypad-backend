@@ -6,10 +6,16 @@ import lombok.Builder;
 
 @Builder
 public record RetroBoard(
-  Integer boardNumber,
+  Integer id,
   String boardLink,
   String hostUserId,
-  Map<String, String> userStatusMap,
-  List<Notes> notes
+  Map<String, UserStatus> userStatus,
+  List<Note> notes
 ) {
+
+  public enum UserStatus {
+    in_progress,
+    finished,
+  }
+
 }

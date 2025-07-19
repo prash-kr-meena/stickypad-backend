@@ -1,3 +1,8 @@
 package com.stickypad.backend.model;
 
-public record CreateRetroBoardRequest(String hostUserId) { }
+import jakarta.validation.constraints.NotBlank;
+
+public record CreateRetroBoardRequest(
+  @NotBlank(message = "Host UserId is required!")
+  String hostUserId
+) { }
