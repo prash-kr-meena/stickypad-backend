@@ -11,4 +11,6 @@ public interface RetroBoardRepository {
 
   RetroBoard getRetroBoard(Integer boardId);
 
+  void retroBoardExists(Integer boardId);
+
 }

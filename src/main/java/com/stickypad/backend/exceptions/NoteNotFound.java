@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class RetroBoardNotFound extends RuntimeException {
+public class NoteNotFound extends RuntimeException {
 
-  public RetroBoardNotFound(String message) {
+  public NoteNotFound(String message) {
     super(message);
   }
 

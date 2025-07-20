@@ -1,14 +1,10 @@
 package com.stickypad.backend.repository;
 
-import static com.stickypad.backend.model.RetroBoard.UserStatus.in_progress;
-
 import com.stickypad.backend.exceptions.RetroBoardNotFound;
 import com.stickypad.backend.model.Note;
 import com.stickypad.backend.model.RetroBoard;
-import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -28,18 +24,9 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
 
   @Override
   public RetroBoard createRetroBoard(String hostUserId) {
-    int boardId = generateUniqueBoardId();
-    RetroBoard retroBoard = RetroBoard.builder()
-      .id(boardId)
-      .hostUserId(hostUserId)
-      .boardLink(URI.create(appBaseUrl + "retro-board/" + boardId).toString())
-      .userStatus(new ConcurrentHashMap<>()) // Using ConcurrentHashMap for thread-safe operations on user status
-      .notes(new CopyOnWriteArrayList<>()) // Using CopyOnWriteArrayList for thread-safe operations on notes
-      .build();
-
-    // Add the host user to status
-    retroBoard.userStatus().put(hostUserId, in_progress);
-
+    Integer boardId = generateUniqueBoardId();
+    RetroBoard retroBoard = RetroBoard.create(boardId, hostUserId, appBaseUrl);;
+//    RetroBoard retroBoard = new RetroBoard(boardId, hostUserId, appBaseUrl);
     retroBoards.put(boardId, retroBoard);
     return retroBoard;
   }
@@ -47,19 +34,14 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
 
   @Override
   public RetroBoard addNote(Integer boardId, Note note) {
-    boardExists(boardId);
-    RetroBoard retroBoard = retroBoards.get(boardId);
-    retroBoard.notes().add(note);
-
-    // Update user status to in_progress
-    retroBoard.userStatus().put(note.userId(), in_progress);
-    return retroBoard;
+    retroBoardExists(boardId);
+    return retroBoards.get(boardId).addNote(note);
   }
 
 
   @Override
   public RetroBoard getRetroBoard(Integer boardId) {
-    boardExists(boardId);
+    retroBoardExists(boardId);
     return retroBoards.get(boardId);
   }
 
@@ -72,8 +54,8 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
    *
    * @return A unique board number.
    */
-  public int generateUniqueBoardId() {
-    int number = (int) (Math.random() * 9000) + 1000;
+  public Integer generateUniqueBoardId() {
+    Integer number = (int) (Math.random() * 9000) + 1000;
     if (retroBoards.containsKey(number)) {
       // If the number already exists, generate a new one
       return generateUniqueBoardId();
@@ -82,7 +64,8 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
   }
 
 
-  private void boardExists(Integer boardId) {
+  @Override
+  public void retroBoardExists(Integer boardId) {
     if (!retroBoards.containsKey(boardId)) {
       throw new RetroBoardNotFound("Board with ID " + boardId + " does not exist.");
     }
