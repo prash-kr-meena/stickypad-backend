@@ -1,0 +1,454 @@
+{
+  "info": {
+    "_postman_id": "1b102bbf-7c09-4186-ae9b-d0f501437f9e",
+    "name": "StickyPad",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37395741"
+  },
+  "item": [
+    {
+      "name": "Create RetroBoard - Board 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "pm.collectionVariables.set(\"board_1_id\", response.id);",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"hostUserId\": \"{{$randomUUID}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create RetroBoard - Board 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "pm.collectionVariables.set(\"board_2_id\", response.id);",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"hostUserId\": \"{{$randomUUID}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get RetroBoard 1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get RetroBoard 2",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_2_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_2_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Note A - Board 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{$randomUUID}}\",\n  \"content\": \"Content 1\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}/note",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}",
+            "note"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add Note B - Board 1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{$randomUUID}}\",\n  \"content\": \"Content 2\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}/note",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}",
+            "note"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Polling Request - Board 1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}/poll?version=3",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}",
+            "poll"
+          ],
+          "query": [
+            {
+              "key": "version",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Polling Request - Board 2",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_2_id}}/poll",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_2_id}}",
+            "poll"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Application Status",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Intuit_IAM_Authentication intuit_appid=Intuit.t4i.wft.goalcoachagent, intuit_app_secret=preprdkeFjbe8ZJ10R6C6nBMUUDPVDRXT8nqPctt, intuit_token_type=Intuit_IAM_Authentication intuit_realmid=123145964165782,intuit_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkludHVpdC5pZGVudGl0eS5hdXRobi5zZXNzaW9uLmtleS4zIiwidHlwIjoiSldUIn0.eyJleHAiOjE3NTI4NDI3NzksImlhdCI6MTc1Mjg0MjE3OSwiaXNzIjoiSW50dWl0LmN0by5pYW0uaGF0cyIsImp0aSI6ImFmNzE0ZTgwLWY4YzUtNGNhYy1iOGY3LTU0Yzc0ZWQ5ZDE1MiIsInN1YiI6Ijk0MTE4MjgxMTkxNDg0MDYiLCJ4LmFjcyI6Ilx1MDAzY0F1dGhaXHUwMDNlXHUwMDNjUGVyc29uYUlkOlwiOTM0MTQ1NDk1Mzk1MzU0N1wiXHUwMDNlXHUwMDNjL1BlcnNvbmFJZFx1MDAzZVx1MDAzY1FCTlJvbGVzOlwiXCJcdTAwM2VcdTAwM2MvUUJOUm9sZXNcdTAwM2VcdTAwM2NSOlwiMTIzMTQ1OTY0MTY1NzgyXCJcdTAwM2VcdTAwM2NPOlwiSW50dWl0XCJcdTAwM2VcdTAwM2NQOlwiaWRwLmVudGl0eS5jcmVhdGU7TyxpZHAuZW50aXR5LmRlbGV0ZTtPLGlkcC5lbnRpdHkubGlzdDtPLGlkcC5lbnRpdHkucmVhZDtPLGlkcC5lbnRpdHkudXBkYXRlO09cIi9cdTAwM2VcdTAwM2MvT1x1MDAzZVx1MDAzYy9SXHUwMDNlXHUwMDNjL0F1dGhaXHUwMDNlIiwieC5hY3QiOiIxMjMxNDU5NjQxNjU3ODIiLCJ4LmFpZCI6Ijk0MTE4MjgxMTkxNDg0MDYiLCJ4LmNsYXMiOiJPUkFOR0UiLCJ4LmRpZ2lkIjoiMjAyMC1jYjRjMTc1Mi1hNDRjLTQ3YWUtYjQ5My01YTExMWRiZTRiNmMiLCJ4LmRpdCI6IklOVEVSTkFMX0FQUExJQ0FUSU9OIiwieC5lbmNkIjoiQmo2RGtOM1cyM21sVitlSExCOWJta3h5UW5OSmlBWXdlMWhMSWdRMkZZSTNFRVFXeGY5d05SUXdQL1FVRjdEY1c5TUluMDN3cjBZdDIrV01EQ0RUMXNNcWV2ZjgveHlGeUY3SWJ3UzlsMWs9IiwieC5pc3Rlc3QiOiJmYWxzZSIsIngubWFwcCI6IkludHVpdC50NGkud2Z0LmdvYWxjb2FjaGFnZW50IiwieC5tb2RlIjoxLCJ4Lm5zaWQiOiI1MDAwMDAwMSIsIngub3JnIjoiQjMiLCJ4LnBpZCI6IjEyMzE0NTk2NDE2NTc4MiIsIngucHJmIjoiOTM0MTQ1NDk1Mzk1MzU0NyIsInguc2lkIjoiOWM0ZjY1YmMtN2RmNy00YWIyLTk2YzctYjFlMDllYTYyOTVkIiwieC51YWFsIjoiMjUiLCJ4LnVhdXQiOi02MjEzNTU5NjgwMDAwMCwieC51aWFsIjoiLTEiLCJ4LnVwZG4iOiIxMzNmZjU3ODUwMjgxNjg0MzA1YjZmM2ZkZGU4YTA3YmZiOCJ9.YFZoRJ_wpJcbhf1eIdOirOfmeWWaOQBYbtLaFcDJqK1OcK1Zw40MNQLLY1VJKb6MhpyU7eqc4D0KGp4Um-7alq2qE9uOu63jvHsGXDXnhkG5RmswME-T_9yyRtLRdldXqzryOHSTo6WMatbA8_rs5Tc41LZDBv6XzYUA45mMD7P17tjUVOfEJ7FfQ7-GyxF2yk5vLqRPhA39MwHe7-e8x6pxH99dYaKtA1HzsLt5wefl9dn6B-_QA7Xat-S4q2qRxi9J64ZIW0JULm8x6EMqs4jqqHUVBxiU24IPTSoX3aiY7qd0ueM0p9gKbeRK68w9InU1xHpbTvTP5EjTfZ1YBg,intuit_token_type=IAM-Ticket,intuit_userid=9411828119148406"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-Forwarded-Port",
+            "value": "8090"
+          },
+          {
+            "key": "intuit_experience_id",
+            "value": "f9914671-88a4-47fb-80fc-4a57c528377f"
+          },
+          {
+            "key": "intuit_originating_assetalias",
+            "value": "Intuit.t4i.wft.goalcoachagent"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"agent\": {\n        \"name\": \"Intuit.t4i.wft.goalcoachagent:goal_coach_agent\"\n    },\n    \"agentInput\": {\n        \"content\": [\n            {\n                \"image\": null,\n                \"text\": \"Automate the onboarding process to cut manual steps by 50%\",\n                \"type\": \"text\"\n            }\n        ]\n    },\n    \"context\": {\n        \"additionalContext\": {},\n        \"interactionType\": \"SYSTEM_INITIATED\",\n        \"platform\": \"web\"\n    },\n    \"metadata\": {\n        \"additionalMetadata\": {\n        },\n        \"interactionGroupId\": \"random-qal-ba288d17-2368-4cb1-928c-5b201f4fba3b\"\n    }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}",
+          "host": [
+            "{{base_url}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Note - Board 1",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}/note/41bb25f3-f416-48e3-bae4-399be76e8a92",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}",
+            "note",
+            "41bb25f3-f416-48e3-bae4-399be76e8a92"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Note - Board 1",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"008e379b-2364-41db-b524-b783fdcaa201\",\n  \"content\": \"Content 1\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}/note/7c81cc5f-350b-4596-8566-9d8bfa555b3d",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}",
+            "note",
+            "7c81cc5f-350b-4596-8566-9d8bfa555b3d"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Note - Board 1 - Error Case",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"{{$randomUUID}}\",\n  \"content\": \"Content 3\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/api/retro-board/{{board_1_id}}/note/2fdee2b6-371d-4829-9827-d4d04b627d76",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "api",
+            "retro-board",
+            "{{board_1_id}}",
+            "note",
+            "2fdee2b6-371d-4829-9827-d4d04b627d76"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "default"
+    },
+    {
+      "key": "board_id",
+      "value": ""
+    },
+    {
+      "key": "board_1_id",
+      "value": ""
+    },
+    {
+      "key": "board_2_id",
+      "value": ""
+    }
+  ]
+}
