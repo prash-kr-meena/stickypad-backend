@@ -7,8 +7,8 @@ public interface RetroBoardRepository {
 
   RetroBoard createRetroBoard(String hostUserId);
 
-  void boardExists(Integer boardId);
-
   RetroBoard addNote(Integer boardId, Note note);
+
+  RetroBoard getRetroBoard(Integer boardId);
 
 }

@@ -9,7 +9,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +30,14 @@ public class RetroBoardController {
   }
 
 
+  /**
+   * Creates a new retro board. The host user is the user who creates the retro board
+   *
+   * @param createRetroBoardRequest
+   *   the request object containing the host user ID
+   *
+   * @return the created RetroBoard object
+   */
   @PostMapping("retro-board")
   public RetroBoard createRetroBoard(@Valid @RequestBody CreateRetroBoardRequest createRetroBoardRequest) {
     return retroBoardService.createRetroBoard(createRetroBoardRequest.hostUserId());
@@ -38,9 +45,25 @@ public class RetroBoardController {
 
 
   /**
-   * Polls the retro board for updates. This endpoint is used to get the latest state of the retro board. THis is HTTP
-   * Long Polling endpoint, which means it will hold the connection open until there is an update
+   * Gets the retro board by its ID. Useful for scenario when the client connects to the retro board for the first time
    *
+   * @param boardId
+   *   the ID of the retro board
+   *
+   * @return the RetroBoard object
+   */
+  @GetMapping("retro-board/{boardId}")
+  public RetroBoard getRetroBoard(@PathVariable("boardId") Integer boardId) {
+    return retroBoardService.getRetroBoard(boardId);
+  }
+
+
+  /**
+   * Polls the retro board for updates. This endpoint is used to get the latest state of the retro board.
+   * This is HTTP Long Polling endpoint, which means it will hold the connection open until there is an update
+   * <p>
+   *
+   * Note: this polling should only poll the for a particular retro board, not all boards.
    * @return RetroBoard
    */
   @GetMapping("retro-board/{boardId}/poll")

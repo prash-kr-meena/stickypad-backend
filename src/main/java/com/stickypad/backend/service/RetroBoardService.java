@@ -35,4 +35,10 @@ public class RetroBoardService {
     return retroBoardRepository.addNote(boardId, note);
   }
 
+
+  public RetroBoard getRetroBoard(Integer boardId) {
+    return retroBoardRepository.getRetroBoard(boardId);
+
+  }
+
 }

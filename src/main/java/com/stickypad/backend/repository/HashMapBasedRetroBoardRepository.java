@@ -2,6 +2,7 @@ package com.stickypad.backend.repository;
 
 import static com.stickypad.backend.model.RetroBoard.UserStatus.in_progress;
 
+import com.stickypad.backend.exceptions.RetroBoardNotFound;
 import com.stickypad.backend.model.Note;
 import com.stickypad.backend.model.RetroBoard;
 import java.net.URI;
@@ -45,14 +46,6 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
 
 
   @Override
-  public void boardExists(Integer boardId) {
-    if (!retroBoards.containsKey(boardId)) {
-      throw new IllegalArgumentException("Board with ID " + boardId + " does not exist.");
-    }
-  }
-
-
-  @Override
   public RetroBoard addNote(Integer boardId, Note note) {
     boardExists(boardId);
     RetroBoard retroBoard = retroBoards.get(boardId);
@@ -61,6 +54,13 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
     // Update user status to in_progress
     retroBoard.userStatus().put(note.userId(), in_progress);
     return retroBoard;
+  }
+
+
+  @Override
+  public RetroBoard getRetroBoard(Integer boardId) {
+    boardExists(boardId);
+    return retroBoards.get(boardId);
   }
 
 
@@ -79,6 +79,13 @@ public class HashMapBasedRetroBoardRepository implements RetroBoardRepository {
       return generateUniqueBoardId();
     }
     return number;
+  }
+
+
+  private void boardExists(Integer boardId) {
+    if (!retroBoards.containsKey(boardId)) {
+      throw new RetroBoardNotFound("Board with ID " + boardId + " does not exist.");
+    }
   }
 
 }
